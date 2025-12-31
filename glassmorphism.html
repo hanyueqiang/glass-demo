@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>毛玻璃效果演示</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 背景容器 */
+        .container {
+            width: 100%;
+            height: 100%;
+            /* 使用类似用户提供的极光/山脉图片 */
+            background-image: url('./bg.png'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* 遮罩层，确保文字可读性（可选） */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* 毛玻璃卡片 */
+        .glass {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            
+            /* 核心毛玻璃效果 */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); /* Safari 支持 */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            
+            /* 阴影增加层次感 */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        /* 内容样式 */
+        .glass h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .glass p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .glass button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .glass button:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .glass {
+                padding: 30px 20px;
+                width: 85%;
+            }
+
+            .glass h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* 降级方案：针对不支持 backdrop-filter 的浏览器 */
+        @supports not (backdrop-filter: blur(20px)) {
+            .glass {
+                background: rgba(255, 255, 255, 0.85); /* 不支持模糊时使用更高的不透明度 */
+                color: #333; /* 调整文字颜色以适应浅色背景 */
+            }
+            .glass h1, .glass p {
+                text-shadow: none;
+            }
+            .glass button {
+                background: #333;
+                color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass">
+            <h1>Glassmorphism</h1>
+            <p>这是一个使用 HTML 和 CSS 实现的毛玻璃效果示例。它结合了背景模糊、半透明度和边框，创造出类似磨砂玻璃的视觉质感。</p>
+            <button>了解更多</button>
+        </div>
+    </div>
+</body>
+</html>
